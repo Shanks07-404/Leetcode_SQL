@@ -1,0 +1,21 @@
+name: Sync LeetCode Solutions
+
+on:
+  workflow_dispatch: # Allows manual trigger button
+  schedule:
+    - cron: '0 8 * * *' # Runs automatically every day at 8:00 AM UTC
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fetch and Sync Solutions
+        uses: joshcai/leetcode-sync@v1.7.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          leetcode-session: ${{ secrets.LEETCODE_SESSION }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
+          filter-duplicate-secs: 86400
+          destination-folder: '.'
+          verbose: true
